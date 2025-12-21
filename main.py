@@ -3,7 +3,7 @@ import instaloader
 import sys
 
 
-def IDL(url,name) -> None:
+def idl(url, name) -> None:
     obj = instaloader.Instaloader()
     post = instaloader.Post.from_shortcode(obj.context, url.split('p/')[1].strip('/ '))
     photo_url = post.url
@@ -20,7 +20,7 @@ def IDL(url,name) -> None:
 
 def main(args):
     for i in range(0, len(args)):
-        IDL(args[i], "media" + i)
+        idl(args[i], "media" + str(i))
 
 
 if __name__ == "__main__":

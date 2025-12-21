@@ -4,6 +4,7 @@ import sys
 
 
 def idl(url, name) -> None:
+    print("Getting insta url: " + url)
     obj = instaloader.Instaloader()
     post = instaloader.Post.from_shortcode(obj.context, url.split('p/')[1].strip('/ '))
     photo_url = post.url
@@ -19,8 +20,12 @@ def idl(url, name) -> None:
 
 
 def main(args):
-    for i in range(0, len(args)):
-        idl(args[i], "media" + str(i))
+    if args:
+        for i in range(0, len(args)):
+            idl(args[i], "media" + str(i))
+    else:
+        test_url = "https://www.instagram.com/reel/DSDVmQcE1Gt/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ=="
+        idl(test_url, "test")
 
 
 if __name__ == "__main__":

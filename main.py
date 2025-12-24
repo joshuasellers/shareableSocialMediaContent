@@ -24,7 +24,7 @@ def main(args):
         for i in range(0, len(args)):
             idl(args[i], "media" + str(i))
     else:
-        test_url = "https://www.instagram.com/reel/DSDVmQcE1Gt/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ=="
+        test_url = "https://www.instagram.com/p/DRtGmBrD1Az/ "
         idl(test_url, "test")
 
 

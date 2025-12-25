@@ -1,32 +1,23 @@
-import requests
 import instaloader
-import sys
 
+# Create an Instaloader instance
+L = instaloader.Instaloader()
 
-def idl(url, name) -> None:
-    print("Getting insta url: " + url)
-    obj = instaloader.Instaloader()
-    post = instaloader.Post.from_shortcode(obj.context, url.split('p/')[1].strip('/ '))
-    photo_url = post.url
-    video_url = post.video_url
-    if video_url:
-        response = requests.get(video_url)
-        with open("./vids/"+"insta"+name+".mp4", "wb") as f:
-            f.write(response.content)
-    elif photo_url:
-        response = requests.get(photo_url)
-        with open("./vids/"+"insta" +name+".jpg", "wb") as f:
-            f.write(response.content)
+# Define the post URL
+post_url = "https://www.instagram.com/p/DRtGmBrD1Az/" # Replace with the actual URL
 
+try:
+    # Extract the shortcode from the URL
+    shortcode = post_url.split("/")[-2]
 
-def main(args):
-    if args:
-        for i in range(0, len(args)):
-            idl(args[i], "media" + str(i))
-    else:
-        test_url = "https://www.instagram.com/p/DRtGmBrD1Az/ "
-        idl(test_url, "test")
+    # Retrieve the post metadata
+    post = instaloader.Post.from_shortcode(L.context, shortcode)
 
+    # Download the post (image/video and metadata)
+    # The second argument specifies the target directory name
+    L.download_post(post, "instagram_downloads")
+    print(f"Post {shortcode} downloaded successfully into 'instagram_downloads' folder.")
 
-if __name__ == "__main__":
-    main(sys.argv[1:])
+except Exception as e:
+    print(f"An error occurred: {e}")
+
